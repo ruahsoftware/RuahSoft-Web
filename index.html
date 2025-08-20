@@ -119,7 +119,7 @@ body.dark {
       transition: background-color .2s ease, transform .2s ease;
     }
     .donar-btn:hover {
-      background-color: #80b8ff;
+      background-color: #2181ff;
       transform: scale(1.05);
     }
 
@@ -444,22 +444,21 @@ input:checked + .slider:before {
 
 
       <!-- Galería -->
+
 <div id="galeria" class="tab-panel">
+  <h2 class="gallery-title">✨ DailyVerse</h2>
   <div class="gallery">
     <div class="gallery-item">
-      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 1" data-caption="Descripción de la foto 1">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/Screenshot_20250818_213559.png" alt="Foto 1" data-caption="Recibe un verso diario cada día">
     </div>
     <div class="gallery-item">
-      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 2" data-caption="Descripción de la foto 2">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/Screenshot_20250818_213536.png" alt="Foto 2" data-caption="">
     </div>
     <div class="gallery-item">
-      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 3" data-caption="Descripción de la foto 3">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/Screenshot_20250818_001243.png" alt="Foto 3" data-caption="">
     </div>
     <div class="gallery-item">
-      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 4" data-caption="Descripción de la foto 4">
-    </div>
-    <div class="gallery-item">
-      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 5" data-caption="Descripción de la foto 5">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/Screenshot_20250818_224226.png" alt="Foto 4" data-caption="">
     </div>
   </div>
 </div>
@@ -474,42 +473,40 @@ input:checked + .slider:before {
 </div>
 
 <style>
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 10px;
-  }
-
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: 200px; /* fuerza la altura de cada fila */
   gap: 16px;
   padding: 10px;
 }
 
 .gallery-item {
   position: relative;
+  width: 100%;
+  padding-top: 100%; /* contenedor cuadrado */
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   cursor: pointer;
+  background-color: #f0f0f0; /* fondo para rellenar el espacio si la imagen no llena */
 }
 
 .gallery-item img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100%;
   height: 100%;
-  object-fit: cover;       /* llena el contenedor */
-  object-position: center; /* centra la imagen */
+  object-fit: contain;      /* se ve completa */
+  transform: translate(-50%, -50%); /* centra la imagen */
   display: block;
-  cursor: pointer;
   transition: transform 0.4s ease;
 }
 
 .gallery-item:hover img {
-  transform: scale(1.05);
+  transform: translate(-50%, -50%) scale(1.05); /* zoom centrado en hover */
 }
+
 
 
   .lightbox {
@@ -691,9 +688,9 @@ input:checked + .slider:before {
     document.getElementById('donar-btn').addEventListener('click', ()=>{
       document.querySelectorAll('.fb-tab').forEach(t=>t.classList.remove('active'));
       document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-      const acercaTab = document.querySelector('.fb-tab[data-tab="acerca"]');
+      const acercaTab = document.querySelector('.fb-tab[data-tab="contacto"]');
       acercaTab.classList.add('active');
-      document.getElementById('acerca').classList.add('active');
+      document.getElementById('contacto').classList.add('active');
       window.scrollTo({ top: document.querySelector('.fb-tabs').offsetTop, behavior: 'smooth' });
     });
 
