@@ -5,12 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RuahSoft</title>
   <style>
-    :root {
-      --bg-main: #1a2026;
-      --bg-bar: #222831;
-      --accent: #60a5fa;
-      --text-color: #dce7ea;
-    }
+/* Variables de color */
+:root {
+  --bg-main: #ffffff;    /* fondo general claro */
+  --bg-bar: #f9f9f9;     /* barra clara */
+  --accent: #60a5fa;     /* color de acento */
+  --text-color: #1a1a1a; /* texto negro */
+  --card-bg: #ebebeb;    /* tarjetas crema */
+}
+
+body.dark {
+  --bg-main: #1a2026;    /* fondo general oscuro */
+  --bg-bar: #222831;     /* barra oscura */
+  --accent: #60a5fa;     /* color de acento */
+  --text-color: #ffffff; /* texto blanco */
+  --card-bg: #2b3a44;    /* tarjetas gris oscuro */
+}
+
 
     body {
       background-color: var(--bg-main);
@@ -19,6 +30,7 @@
       margin: 0;
       padding: 0;
       padding-bottom: 60px; /* espacio para la barra fija */
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     /* Contenedor principal centrado */
@@ -74,6 +86,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
     }
 
     .fb-left {
@@ -110,13 +123,65 @@
       transform: scale(1.05);
     }
 
+/* Toggle Switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 28px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "☀️"; /* ícono inicial */
+  height: 22px; width: 22px;
+  left: 3px; bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+input:checked + .slider {
+  background-color: var(--accent, #4a90e2);
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+  content: "🌙"; /* cambia el ícono */
+}
+
+
     /* Menú pestañas */
     .fb-tabs {
       display: flex;
       gap: 20px;
       padding: 10px 20px;
       background: var(--bg-main);
-      border-top: 1px solid #444;
+      border-top: 1px solid #ccc;
       max-width: 100%;
     }
     .fb-tab {
@@ -131,7 +196,7 @@
       transition: all 0.2s ease;
     }
     .fb-tab:hover {
-      color: white;
+      color: var(--accent);
     }
     .fb-tab.active {
       color: var(--accent);
@@ -158,12 +223,13 @@
       box-sizing: border-box;
     }
     .rs-card {
-      background: #2b3a44;
+      background: var(--card-bg);
       border-radius: 18px;
       padding: 16px 18px;
       box-sizing: border-box;
       max-width: 820px;
       width: 100%;
+      transition: background 0.3s ease;
     }
     .rs-title {
       margin: 0 0 8px 0;
@@ -198,7 +264,7 @@
 
     /* FOOTER - BARRA RRSS FIJA */
     .social-bar {
-      background-color: #222831;
+      background-color: var(--bg-bar);
       padding: 12px 0;
       display: flex;
       justify-content: center;
@@ -238,7 +304,6 @@
   </style>
 </head>
 <body>
-
   <div class="page-container">
     <!-- Contenedor general -->
     <div class="fb-header-wrap">
@@ -254,8 +319,13 @@
               <p class="fb-subtitle">Software que inspira</p>
             </div>
           </div>
-          <div class="fb-donar">
+          <div class="toggle-container">
             <button id="donar-btn" class="donar-btn">Donar</button>
+            <!-- Switch -->
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider"></span>
+            </label>
           </div>
         </div>
       </div>
@@ -269,65 +339,68 @@
       <button class="fb-tab" data-tab="contacto">Contacto</button>
     </div>
 
-<!-- Contenido de pestañas -->
-<div class="tab-content">
-  <!-- Posts -->
-  <div id="posts" class="tab-panel active">
-    <div class="rs-wrap">
-      <div class="rs-card">
-        <h2 class="rs-title">DailyVerse 1.0.0</h2>
-        <p class="rs-text">
-          🌟 Esta aplicación no solo te entrega un versículo bíblico cada día, sino que también te conecta con el cielo 🙏, te inspira a meditar en las Escrituras 📖, encontrar consuelo en momentos difíciles 💛 y compartir las buenas nuevas con tus seres más queridos ✨.
-        </p>
-        <p class="rs-text" style="margin-top:12px; font-style:italic; color:#80b8ff;">
-          💫 "El Señor es mi pastor; nada me faltará." – Salmos 23:1 💫
-        </p>
-      </div>
-    </div>
-
-    <!-- Sección video + descripción en card -->
-<div class="rs-wrap">
-  <div class="video-card">
-    <!-- Columna izquierda: video -->
-    <div class="video-left">
-      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/PKWzhNFSJic" title="DailyVerse Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <!-- Columna derecha: texto -->
-    <div class="video-right">
+    <!-- Contenido de pestañas -->
+    <div class="tab-content">
+<!-- Posts -->
+<div id="posts" class="tab-panel active">
+  <div class="rs-wrap">
+    <div class="rs-card">
       <h2 class="rs-title">DailyVerse 1.0.0</h2>
-      <ul class="app-features">
-        <li>📖 Versículos diarios automáticamente</li>
-        <li>✨ Diseño moderno y fácil de usar</li>
-        <li>🔔 Recordatorios diarios para reflexionar</li>
-        <li>💡 Consejos e inspiración basados en la Biblia</li>
-        <li>🌐 Compartir versículos con amigos</li>
-        <li>💬 Notas personales para cada versículo</li>
-        <li>📅 Histórico de versículos leídos</li>
-        <li>📲 Descarga la App aquí:&nbsp;<a href="https://play.google.com/" target="_blank" style="color:#60a5fa; text-decoration:none;">DailyVerse</a></li>
-      </ul>
+      <p class="rs-text">
+        🌟 Esta aplicación no solo te entrega un versículo bíblico cada día, sino que también te conecta con el cielo 🙏, te inspira a meditar en las Escrituras 📖, encontrar consuelo en momentos difíciles 💛 y compartir las buenas nuevas con tus seres más queridos ✨.
+      </p>
+      <p class="rs-text" style="margin-top:12px; font-style:italic; color:var(--highlight-color);">
+        💫 "El Señor es mi pastor; nada me faltará." – Salmos 23:1 💫
+      </p>
+    </div>
+  </div>
+
+  <!-- Sección video + descripción en card -->
+  <div class="rs-wrap">
+    <div class="video-card">
+      <!-- Columna izquierda: video -->
+      <div class="video-left">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/PKWzhNFSJic" title="DailyVerse Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <!-- Columna derecha: texto -->
+      <div class="video-right">
+        <h2 class="rs-title">DailyVerse 1.0.0</h2>
+        <ul class="app-features">
+          <li>📖 Versículos diarios automáticamente</li>
+          <li>✨ Diseño moderno y fácil de usar</li>
+          <li>🔔 Recordatorios diarios para reflexionar</li>
+          <li>💡 Consejos e inspiración basados en la Biblia</li>
+          <li>🌐 Compartir versículos con amigos</li>
+          <li>💬 Notas personales para cada versículo</li>
+          <li>📅 Histórico de versículos leídos</li>
+          <li>📲 Descarga la App aquí:&nbsp; <a href="https://play.google.com/" target="_blank" style="color:rgb(55, 136, 249); text-decoration:none;">DailyVerse</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-/* Card similar a la de posts */
+
+/* Card de video */
 .video-card {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  background: #2b3a44;
+  background: var(--card-bg);
   border-radius: 18px;
   padding: 16px 18px;
   max-width: 820px;
   width: 100%;
   box-sizing: border-box;
   margin-top: 24px;
+  color: var(--card-text);
 }
 
 .video-left, .video-right {
-  flex: 1 1 300px; /* flexible, mínimo 300px */
+  flex: 1 1 300px;
   max-width: 480px;
 }
 
@@ -340,11 +413,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.video-right h2 {
-  margin-top: 0;
-  margin-bottom: 12px;
 }
 
 .app-features {
@@ -373,46 +441,239 @@
 </style>
 
 
-  </div>
-  <!-- Galería -->
-  <div id="galeria" class="tab-panel">
-    <div class="gallery">
-      <div class="gallery-item" style="background-color:#ef4444;"></div>
-      <div class="gallery-item" style="background-color:#3b82f6;"></div>
-      <div class="gallery-item" style="background-color:#10b981;"></div>
-    </div>
-  </div>
 
-  <!-- Acerca de -->
-  <div id="acerca" class="tab-panel">
-    <div class="rs-wrap">
-      <div class="rs-card">
-        <h2 class="rs-title">Acerca de <span>RuahSoft</span></h2>
-        <p class="rs-text">"RuahSoft desarrolla aplicaciones móviles y software innovador para Android e iOS. Nos apasiona convertir ideas en experiencias digitales útiles y de calidad."</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Contacto -->
-  <div id="contacto" class="tab-panel">
-    <div class="rs-wrap">
-      <div class="rs-card">
-        <h2 class="rs-title">Contacto</h2>
-        <p class="rs-text">📧 Correo: <a href="mailto:ruahsoftware@gmail.com" style="color:#dce7ea;">ruahsoftware@gmail.com</a></p>
-      </div>
+      <!-- Galería -->
+<div id="galeria" class="tab-panel">
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 1" data-caption="Descripción de la foto 1">
+    </div>
+    <div class="gallery-item">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 2" data-caption="Descripción de la foto 2">
+    </div>
+    <div class="gallery-item">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 3" data-caption="Descripción de la foto 3">
+    </div>
+    <div class="gallery-item">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 4" data-caption="Descripción de la foto 4">
+    </div>
+    <div class="gallery-item">
+      <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/logo%20ruahsoft%20512x512.jpg" alt="Foto 5" data-caption="Descripción de la foto 5">
     </div>
   </div>
 </div>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+  <div id="lightbox-caption" class="caption"></div>
+  <a class="prev">&#10094;</a>
+  <a class="next">&#10095;</a>
+</div>
+
+<style>
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 10px;
+  }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 200px; /* fuerza la altura de cada fila */
+  gap: 16px;
+  padding: 10px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* llena el contenedor */
+  object-position: center; /* centra la imagen */
+  display: block;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+
+  .lightbox-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 75vh;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    animation: zoom 0.3s ease;
+  }
+
+  @keyframes zoom {
+    from {transform: scale(0.8);}
+    to {transform: scale(1);}
+  }
+
+  .caption {
+    margin: 15px auto 0;
+    max-width: 80%;
+    color: #f1f1f1;
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .close {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .close:hover { color: #f1f1f1; }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 36px;
+    transition: 0.3s;
+    user-select: none;
+  }
+
+  .prev { left: 20px; }
+  .next { right: 20px; }
+
+  .prev:hover, .next:hover { color: #ddd; }
+</style>
+
+<script>
+  const galleryItems = document.querySelectorAll('.gallery-item img');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const closeBtn = document.querySelector('.close');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    lightbox.style.display = 'block';
+    updateLightbox(index);
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = 'none';
+  }
+
+  function updateLightbox(index) {
+    lightboxImg.src = galleryItems[index].src;
+    lightboxCaption.textContent = galleryItems[index].dataset.caption || '';
+    currentIndex = index;
+  }
+
+  function showPrev() {
+    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+    updateLightbox(currentIndex);
+  }
+
+  function showNext() {
+    currentIndex = (currentIndex + 1) % galleryItems.length;
+    updateLightbox(currentIndex);
+  }
+
+  galleryItems.forEach((item, index) => {
+    item.addEventListener('click', () => openLightbox(index));
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  prevBtn.addEventListener('click', showPrev);
+  nextBtn.addEventListener('click', showNext);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.style.display === 'block') {
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+      if (e.key === 'Escape') closeLightbox();
+    }
+  });
+</script>
+
+
+
+
+
+
+
+      <!-- Acerca de -->
+      <div id="acerca" class="tab-panel">
+        <div class="rs-wrap">
+          <div class="rs-card">
+            <h2 class="rs-title">Acerca de <span>RuahSoft</span></h2>
+            <p class="rs-text">"RuahSoft desarrolla aplicaciones móviles y software innovador para Android e iOS. Nos apasiona convertir ideas en experiencias digitales útiles y de calidad."</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacto -->
+      <div id="contacto" class="tab-panel">
+        <div class="rs-wrap">
+          <div class="rs-card">
+            <h2 class="rs-title">Contacto</h2>
+            <p class="rs-text">📧 Correo: <a href="mailto:ruahsoftware@gmail.com" style="color:var(--accent);">ruahsoftware@gmail.com</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Barra de RRSS siempre visible -->
-<div class="social-bar">
-  <a href="https://web.facebook.com/ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
-  <a href="https://www.instagram.com/ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
-   <a href="https://www.tiktok.com/@ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
-  <a href="https://www.youtube.com/@RuahSoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
-  <a href="https://play.google.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Play Store"></a>
-</div>
-
+  <div class="social-bar">
+    <a href="https://web.facebook.com/ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+    <a href="https://www.instagram.com/ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+    <a href="https://www.tiktok.com/@ruahsoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png" alt="TikTok"></a>
+    <a href="https://www.youtube.com/@RuahSoft" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube"></a>
+    <a href="https://play.google.com/" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Play Store"></a>
+  </div>
 
   <script>
     // Cambio de pestañas
@@ -435,6 +696,13 @@
       document.getElementById('acerca').classList.add('active');
       window.scrollTo({ top: document.querySelector('.fb-tabs').offsetTop, behavior: 'smooth' });
     });
+
+    // Toggle dark/light mode
+    const toggle = document.getElementById('theme-toggle');
+    toggle.addEventListener('change', ()=>{
+      document.body.classList.toggle('dark');
+    });
   </script>
 </body>
 </html>
+
