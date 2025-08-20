@@ -443,10 +443,10 @@ input:checked + .slider:before {
 
 
 
-      <!-- Galería -->
+<!-- Galería -->
 
 <div id="galeria" class="tab-panel">
-  <h2 class="gallery-title">✨ DailyVerse</h2>
+  <h2 class="rs-title">✨ DailyVerse</h2>
   <div class="gallery">
     <div class="gallery-item">
       <img src="https://raw.githubusercontent.com/ruahsoftware/archivos-ruahsoft/refs/heads/main/Screenshot_20250818_213559.png" alt="Foto 1" data-caption="Recibe un verso diario cada día">
@@ -586,10 +586,14 @@ input:checked + .slider:before {
 /* Adaptación móvil */
 @media (max-width: 600px) {
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 8px;
+  }
+  .gallery-item {
+    padding-top: 100%; /* mantiene el cuadrado */
   }
 }
+
 </style>
 
 <script>
@@ -648,6 +652,7 @@ document.addEventListener('keydown', (e) => {
   }
 });
 </script>
+
 
 
 
