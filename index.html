@@ -654,12 +654,6 @@ document.addEventListener('keydown', (e) => {
 </script>
 
 
-
-
-
-
-
-
       <!-- Acerca de -->
       <div id="acerca" class="tab-panel">
         <div class="rs-wrap">
@@ -670,17 +664,21 @@ document.addEventListener('keydown', (e) => {
         </div>
       </div>
 
+
       <!-- Contacto -->
-      <div id="contacto" class="tab-panel">
-        <div class="rs-wrap">
-          <div class="rs-card">
-            <h2 class="rs-title">Contacto</h2>
-            <p class="rs-text">📧 Correo: <a href="mailto:ruahsoftware@gmail.com" style="color:var(--accent);">ruahsoftware@gmail.com</a></p>
-          </div>
-        </div>
-      </div>
+<div id="contacto" class="tab-panel">
+  <div class="rs-wrap">
+    <div class="rs-card">
+      <h2 class="rs-title">Contacto</h2>
+      <p class="rs-text">📧 Correo: 
+        <a href="mailto:ruahsoftware@gmail.com" style="color:var(--accent);">
+          ruahsoftware@gmail.com
+        </a>
+      </p>
     </div>
   </div>
+
+
 
   <!-- Barra de RRSS siempre visible -->
   <div class="social-bar">
@@ -703,15 +701,11 @@ document.addEventListener('keydown', (e) => {
       });
     });
 
-    // Botón Donar -> pestaña "Acerca de"
-    document.getElementById('donar-btn').addEventListener('click', ()=>{
-      document.querySelectorAll('.fb-tab').forEach(t=>t.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-      const acercaTab = document.querySelector('.fb-tab[data-tab="contacto"]');
-      acercaTab.classList.add('active');
-      document.getElementById('contacto').classList.add('active');
-      window.scrollTo({ top: document.querySelector('.fb-tabs').offsetTop, behavior: 'smooth' });
-    });
+// Botón Donar -> PayPal
+document.getElementById('donar-btn').addEventListener('click', () => {
+  window.open("https://www.paypal.com/donate?hosted_button_id=BFFPC36T3WPDW", "_blank");
+});
+
 
     // Toggle dark/light mode
     const toggle = document.getElementById('theme-toggle');
